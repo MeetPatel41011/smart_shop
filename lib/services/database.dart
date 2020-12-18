@@ -9,6 +9,8 @@ class DatabaseService {
 //collection reference
   final CollectionReference shopsCollection =
       Firestore.instance.collection('shops');
+  final CollectionReference productsCollection =
+      Firestore.instance.collection('products');
 
   Future updateUserData(String shopName, int noOfProducts) async {
     return await shopsCollection
@@ -16,14 +18,20 @@ class DatabaseService {
         .setData({'shop_name': shopName, 'no_of_products': noOfProducts});
   }
 
-  Stream<List<ProductModel>> get brew {
+  Future updateProductData(
+      String productName, double price, int quantity) async {
+    return await productsCollection.document(uid).setData(
+        {'product_name': productName, 'price': price, 'quantity': quantity});
+  }
+
+  Stream<List<ProductData>> get brew {
     return shopsCollection.snapshots().map(_brewListFromSnapshot);
   }
 
-  List<ProductModel> _brewListFromSnapshot(QuerySnapshot snapshot) {
+  List<ProductData> _brewListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      return ProductModel(
-          pName: doc.data['product_name'] ?? '',
+      return ProductData(
+          productName: doc.data['product_name'] ?? '',
           price: doc.data['price'] ?? 0,
           quantity: doc.data['quantity']);
     }).toList();
@@ -35,6 +43,14 @@ class DatabaseService {
       noOfProducts: snapshot.data['no_of_products'],
       uid: uid,
     );
+  }
+
+  ProductData _getProductDetails(DocumentSnapshot snapshot) {
+    return ProductData(
+        productName: snapshot.data['product_name'],
+        price: snapshot.data['price'],
+        quantity: snapshot.data['quantity'],
+        pUid: uid);
   }
 
   Stream<UserData> get userData {

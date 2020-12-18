@@ -113,7 +113,18 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
                                     _shopName ?? userData.shopName,
                                     _np ?? userData.noOfProducts,
                                   );
-                                  Get.to(page4());
+                                  for (int i = 0;
+                                      i < userData.noOfProducts;
+                                      i++) {
+                                    await DatabaseService(uid: user.uid)
+                                        .updateProductData('product$i', 0, 0);
+                                  }
+                                  Get.to(
+                                    page4(
+                                      productCount: userData.noOfProducts,
+                                      sName: userData.shopName,
+                                    ),
+                                  );
                                 }
                               },
                               shape: RoundedRectangleBorder(
