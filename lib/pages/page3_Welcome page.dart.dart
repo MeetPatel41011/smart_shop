@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shop/models/user.dart';
-import 'package:smart_shop/pages/page4.dart';
 import 'package:smart_shop/services/database.dart';
 import 'package:smart_shop/widgets/loading.dart';
 
