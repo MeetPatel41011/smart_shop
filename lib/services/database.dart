@@ -10,10 +10,9 @@ class DatabaseService {
   final CollectionReference shopsCollection =
       Firestore.instance.collection('shops');
 
-  Future updateUserData(String sugars, String name, int strength) async {
-    return await shopsCollection
-        .document(uid)
-        .setData({'sugars': sugars, 'name': name, 'strength': strength});
+  Future updateUserData(double price, String productName, int quantity) async {
+    return await shopsCollection.document(uid).setData(
+        {'price': price, 'product_name': productName, 'quantity': quantity});
   }
 
   Stream<List<ProductModel>> get brew {
@@ -23,16 +22,16 @@ class DatabaseService {
   List<ProductModel> _brewListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return ProductModel(
-          pName: doc.data['name'] ?? '',
-          price: doc.data['strength'] ?? 100,
-          quantity: doc.data['sugars']);
+          pName: doc.data['product_name'] ?? '',
+          price: doc.data['price'] ?? 0,
+          quantity: doc.data['quantity']);
     }).toList();
   }
 
   UserData _getUserdataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
       name: snapshot.data['name'],
-      shopName: snapshot.data['shopname'],
+      shopName: snapshot.data['shop_name'],
       products: snapshot.data['products'],
       uid: uid,
     );

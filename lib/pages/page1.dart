@@ -8,28 +8,21 @@ final double _minimumPadding = 5.0;
 class page1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Welcome'
-        ),
-      ),
       body: Container(
         margin: EdgeInsets.all(_minimumPadding * 2),
         child: ListView(
           children: <Widget>[
             logo(),
-          Center(
-
+            Center(
               child: Text("Smart Shop",
                   style: TextStyle(
                     fontSize: 35.0,
                     color: Colors.blue,
                     fontFamily: 'Caveat',
                   )),
-    ),
-           Center(
+            ),
+            Center(
               child: RaisedButton(
                   color: Colors.blueAccent,
                   textColor: Colors.white,
@@ -45,12 +38,11 @@ class page1 extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => page2_loginpage()),
-
                     );
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0))),
-           ),
+            ),
           ],
         ),
       ),
