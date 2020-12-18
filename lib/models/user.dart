@@ -1,12 +1,11 @@
-class User {
+class UserModel {
   final String uid;
-  User({this.uid});
+  UserModel({this.uid});
 }
 
 class UserData {
   final String uid;
-  final String name;
   final String shopName;
-  final int products;
-  UserData({this.name, this.products, this.shopName, this.uid});
+  final int noOfProducts;
+  UserData({this.noOfProducts, this.shopName, this.uid});
 }

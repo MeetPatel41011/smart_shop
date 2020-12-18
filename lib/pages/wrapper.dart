@@ -7,7 +7,7 @@ import 'page3_Welcome page.dart.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<UserModel>(context);
     print(user);
     return user == null ? page1() : page3_Welcomepage();
   }

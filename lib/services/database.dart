@@ -31,9 +31,8 @@ class DatabaseService {
 
   UserData _getUserdataFromSnapshot(DocumentSnapshot snapshot) {
     return UserData(
-      name: snapshot.data['name'],
       shopName: snapshot.data['shop_name'],
-      products: snapshot.data['products'],
+      noOfProducts: snapshot.data['no_of_products'],
       uid: uid,
     );
   }

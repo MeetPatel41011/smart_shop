@@ -4,11 +4,11 @@ import 'package:smart_shop/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User _userFromFirebaseUer(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  UserModel _userFromFirebaseUer(FirebaseUser user) {
+    return user != null ? UserModel(uid: user.uid) : null;
   }
 
-  Stream<User> get user {
+  Stream<UserModel> get user {
     return _auth.onAuthStateChanged
         .map((FirebaseUser user) => _userFromFirebaseUer(user));
   }
