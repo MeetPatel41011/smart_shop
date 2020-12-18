@@ -10,9 +10,10 @@ class DatabaseService {
   final CollectionReference shopsCollection =
       Firestore.instance.collection('shops');
 
-  Future updateUserData(double price, String productName, int quantity) async {
-    return await shopsCollection.document(uid).setData(
-        {'price': price, 'product_name': productName, 'quantity': quantity});
+  Future updateUserData(String shopName, int noOfProducts) async {
+    return await shopsCollection
+        .document(uid)
+        .setData({'shop_name': shopName, 'no_of_products': noOfProducts});
   }
 
   Stream<List<ProductModel>> get brew {

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:smart_shop/pages/page2_login page.dart';
@@ -17,21 +18,45 @@ class page1 extends StatelessWidget {
             Center(
               child: Text("Smart Shop",
                   style: TextStyle(
-                    fontSize: 35.0,
-                    color: Colors.blue,
+                    fontSize: 40.0,
+                    color: Colors.black,
                     fontFamily: 'Caveat',
                   )),
             ),
-            Center(
-              child: RaisedButton(
+            SizedBox(height: 100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   color: Colors.blueAccent,
                   textColor: Colors.white,
                   child: Text(
+                    'Register',
+                    textScaleFactor: 1.2,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => page2_loginpage(
+                          isLogin: false,
+                        ),
+                      ),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                ),
+                SizedBox(width: 20),
+                RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 45),
+                  color: Colors.blueAccent[700],
+                  textColor: Colors.white,
+                  child: Text(
                     'Login',
-                    textScaleFactor: 1.5,
-                    style: TextStyle(
-                      fontFamily: 'Caveat',
-                    ),
+                    textScaleFactor: 1.2,
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -41,7 +66,10 @@ class page1 extends StatelessWidget {
                     );
                   },
                   shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0))),
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

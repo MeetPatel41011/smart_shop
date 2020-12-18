@@ -13,23 +13,11 @@ class AuthService {
         .map((FirebaseUser user) => _userFromFirebaseUer(user));
   }
 
-  Future signInAnon() async {
-    try {
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
-      return _userFromFirebaseUer(user);
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
-  }
-
   Future register(String email, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      await DatabaseService(uid: result.user.uid)
-          .updateUserData(0, result.user.email, 100);
+      await DatabaseService(uid: result.user.uid).updateUserData('New Shop', 5);
       return _userFromFirebaseUer(result.user);
     } catch (e) {
       print(e.toString());
