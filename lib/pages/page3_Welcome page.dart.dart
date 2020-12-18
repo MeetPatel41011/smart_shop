@@ -112,7 +112,6 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
                                     _shopName ?? userData.shopName,
                                     _noOfProducts ?? userData.noOfProducts,
                                   );
-                                  Navigator.pushReplacement(context);
                                 }
                               },
                               shape: RoundedRectangleBorder(
