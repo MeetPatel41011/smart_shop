@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shop/models/user.dart';
 import 'package:smart_shop/services/database.dart';
 import 'package:smart_shop/widgets/loading.dart';
+
+import 'page4.dart';
 
 void main() => runApp(page3_Welcomepage());
 final double _minimumPadding = 5.0;
@@ -95,22 +98,22 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(50.0),
+                            padding: const EdgeInsets.all(70.0),
                             child: RaisedButton(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 40),
+                                  vertical: 12, horizontal: 50),
                               color: Colors.blueAccent,
                               textColor: Colors.white,
-                              child: Text(
-                                'Done',
-                              ),
+                              child: Text('Done'),
                               onPressed: () async {
+                                int _np = int.parse(_noOfProducts);
                                 if (_formKey.currentState.validate()) {
                                   await DatabaseService(uid: user.uid)
                                       .updateUserData(
                                     _shopName ?? userData.shopName,
-                                    _noOfProducts ?? userData.noOfProducts,
+                                    _np ?? userData.noOfProducts,
                                   );
+                                  Get.to(page4());
                                 }
                               },
                               shape: RoundedRectangleBorder(

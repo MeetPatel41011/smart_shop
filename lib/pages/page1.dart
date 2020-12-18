@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:smart_shop/pages/page2_login page.dart';
+
+import 'page2_login page.dart';
 
 final double _minimumPadding = 5.0;
 
@@ -36,14 +39,7 @@ class page1 extends StatelessWidget {
                     textScaleFactor: 1.2,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => page2_loginpage(
-                          isLogin: false,
-                        ),
-                      ),
-                    );
+                    Get.to(page2_loginpage(isLogin: false));
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(30.0),
@@ -59,11 +55,7 @@ class page1 extends StatelessWidget {
                     textScaleFactor: 1.2,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => page2_loginpage()),
-                    );
+                    Get.to(page2_loginpage());
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(30.0),
