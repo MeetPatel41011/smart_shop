@@ -20,7 +20,7 @@ class DatabaseService {
 
   Future updateProductData(
       String productName, double price, int quantity) async {
-    return await productsCollection
+    return await shopsCollection
         .document(uid)
         .collection('products')
         .document()

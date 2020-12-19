@@ -117,7 +117,8 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
                                       i < userData.noOfProducts;
                                       i++) {
                                     await DatabaseService(uid: user.uid)
-                                        .updateProductData('product$i', 0, 0);
+                                        .updateProductData(
+                                            'product${i + 1}', 0, 0);
                                   }
                                   Get.to(
                                     page4(
