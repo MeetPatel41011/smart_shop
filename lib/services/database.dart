@@ -20,8 +20,15 @@ class DatabaseService {
 
   Future updateProductData(
       String productName, double price, int quantity) async {
-    return await productsCollection.document(uid).setData(
-        {'product_name': productName, 'price': price, 'quantity': quantity});
+    return await productsCollection
+        .document(uid)
+        .collection('products')
+        .document()
+        .setData({
+      'product_name': productName,
+      'price': price,
+      'quantity': quantity
+    });
   }
 
   Stream<List<ProductData>> get brew {
