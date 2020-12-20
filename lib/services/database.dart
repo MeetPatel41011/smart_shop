@@ -18,12 +18,25 @@ class DatabaseService {
         .setData({'shop_name': shopName, 'no_of_products': noOfProducts});
   }
 
-  Future updateProductData(
-      String productName, double price, int quantity) async {
+  // Future productsPresent()async{
+  //   return await shopsCollection.document(uid)
+  //       .collection('products').
+  // }
+
+  Future createProductData(String pUid) async {
     return await shopsCollection
         .document(uid)
         .collection('products')
-        .document()
+        .document(pUid)
+        .setData({'pUid': pUid});
+  }
+
+  Future updateProductData(
+      String productName, double price, int quantity, String pUid) async {
+    return await shopsCollection
+        .document(uid)
+        .collection('products')
+        .document(pUid)
         .setData({
       'product_name': productName,
       'price': price,
@@ -57,7 +70,7 @@ class DatabaseService {
         productName: snapshot.data['product_name'],
         price: snapshot.data['price'],
         quantity: snapshot.data['quantity'],
-        pUid: uid);
+        pUid: snapshot.documentID);
   }
 
   Stream<UserData> get userData {
@@ -65,5 +78,14 @@ class DatabaseService {
         .document(uid)
         .snapshots()
         .map(_getUserdataFromSnapshot);
+  }
+
+  Stream<ProductData> productData(String pUid) {
+    return shopsCollection
+        .document(uid)
+        .collection('products')
+        .document(pUid)
+        .snapshots()
+        .map(_getProductDetails);
   }
 }
