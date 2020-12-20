@@ -20,12 +20,24 @@ class page4 extends StatefulWidget {
 class _page4State extends State<page4> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context);
+    int prCount = widget.productCount;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add, color: Colors.white),
+        onPressed: () async {
+          setState(() {
+            prCount++;
+          });
+          await DatabaseService(uid: user.uid)
+              .createProductData((prCount).toString());
+        },
+      ),
       appBar: AppBar(title: Text(widget.sName)),
       body: Container(
         margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
         child: ListView.builder(
-            itemCount: widget.productCount,
+            itemCount: prCount,
             itemBuilder: (BuildContext context, int index) {
               return ProductDetailsEntry(pUid: index + 1);
             }),

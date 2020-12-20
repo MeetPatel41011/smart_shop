@@ -37,7 +37,7 @@ class DatabaseService {
         .document(uid)
         .collection('products')
         .document(pUid)
-        .setData({
+        .updateData({
       'product_name': productName,
       'price': price,
       'quantity': quantity
