@@ -19,7 +19,7 @@ class page1 extends StatelessWidget {
           children: <Widget>[
             logo(),
             Center(
-              child: Text("Smart Shop",
+              child: Text("Buho",
                   style: TextStyle(
                     fontSize: 40.0,
                     color: Colors.black,

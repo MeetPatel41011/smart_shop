@@ -11,7 +11,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel>(context);
     return StreamBuilder<UserData>(
-      stream: DatabaseService(uid: user.uid).userData,
+      stream: user == null ? null : DatabaseService(uid: user.uid).userData,
       builder: (context, snapshot) {
         final userData = snapshot.data;
         return user == null
