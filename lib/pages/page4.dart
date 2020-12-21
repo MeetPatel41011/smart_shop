@@ -59,7 +59,7 @@ class _page4State extends State<page4> {
                 textColor: Colors.white,
                 child: Text('Done'),
                 onPressed: () {
-                  Get.to(page5_allset());
+                  Get.to(page5_allset(sName: widget.sName));
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(30.0),
