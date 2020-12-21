@@ -111,7 +111,6 @@ class _page2_loginpageState extends State<page2_loginpage> {
                                     });
                                     dynamic user = await _authService.register(
                                         email, password);
-                                    Get.to(page3_Welcomepage());
                                     if (user == null) {
                                       setState(() {
                                         loading = false;
