@@ -1,32 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shop/models/productModel.dart';
 import 'package:smart_shop/models/user.dart';
+import 'package:smart_shop/services/auth.dart';
 import 'package:smart_shop/services/database.dart';
 import 'package:smart_shop/widgets/loading.dart';
 
+import 'page4.dart';
+
 // ignore: camel_case_types
 class page6_product_list extends StatelessWidget {
-  page6_product_list({this.sName});
+  page6_product_list({this.sName, this.productCount});
   final String sName;
+  final int productCount;
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.camera_alt,
-          color: Colors.white,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+        child: Row(
+          children: [
+            GestureDetector(
+              child: Container(
+                padding: EdgeInsets.all(13),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.green),
+                child: Icon(
+                  Icons.edit_rounded,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                Get.off(page4(productCount: productCount, sName: sName));
+              },
+            ),
+            Spacer(),
+            FloatingActionButton(
+              child: Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                //  Open Camera
+              },
+            ),
+          ],
         ),
-        onPressed: () {
-          //  Open Camera
-        },
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(sName),
+        title: Text(
+          sName,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () async {
+              await _auth.signOut();
+            },
+            child: Center(child: Text('SignOut')),
+          ),
+          SizedBox(
+            width: 20,
+          )
+        ],
       ),
       body: ListView.builder(
-        itemCount: 4,
+        itemCount: productCount,
         itemBuilder: (BuildContext context, int index) {
           return DisplayBox(pUid: index + 1);
         },
