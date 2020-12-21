@@ -40,33 +40,40 @@ class _page4State extends State<page4> {
       appBar: AppBar(title: Text(widget.sName)),
       body: Container(
         margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: Get.height - 186 - 30,
-              child: ListView.builder(
-                itemCount: prCount,
-                itemBuilder: (BuildContext context, int index) {
-                  return ProductDetailsEntry(pUid: index + 1);
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(70, 30, 70, 30),
-              child: RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-                child: Text('Done'),
-                onPressed: () {
-                  Get.to(page5_allset(sName: widget.sName));
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(30.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: Get.height - 186 - 30,
+                child: ListView.builder(
+                  itemCount: prCount,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ProductDetailsEntry(pUid: index + 1);
+                  },
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+              Text(
+                'Make sure the checks turn green before Clicking \'Done\'',
+                style: TextStyle(color: Colors.green, fontSize: 13),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(70, 8, 70, 30),
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                  color: Colors.blueAccent,
+                  textColor: Colors.white,
+                  child: Text('Done'),
+                  onPressed: () {
+                    Get.to(page5_allset(sName: widget.sName));
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -185,7 +192,7 @@ class _ProductDetailsEntryState extends State<ProductDetailsEntry> {
               ),
             );
           } else {
-            return Loading();
+            return Scaffold();
           }
         });
   }
