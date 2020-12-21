@@ -4,6 +4,8 @@ import 'package:smart_shop/models/productModel.dart';
 import 'package:smart_shop/models/user.dart';
 import 'package:smart_shop/services/database.dart';
 import 'package:smart_shop/widgets/loading.dart';
+import 'package:get/get.dart';
+import 'page5_All set page.dart';
 
 // ignore: camel_case_types
 class page4 extends StatefulWidget {
@@ -38,11 +40,34 @@ class _page4State extends State<page4> {
       appBar: AppBar(title: Text(widget.sName)),
       body: Container(
         margin: EdgeInsets.fromLTRB(15, 20, 0, 0),
-        child: ListView.builder(
-            itemCount: prCount,
-            itemBuilder: (BuildContext context, int index) {
-              return ProductDetailsEntry(pUid: index + 1);
-            }),
+        child: Column(
+          children: [
+            SizedBox(
+              height: Get.height - 186 - 30,
+              child: ListView.builder(
+                itemCount: prCount,
+                itemBuilder: (BuildContext context, int index) {
+                  return ProductDetailsEntry(pUid: index + 1);
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(70, 30, 70, 30),
+              child: RaisedButton(
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                child: Text('Done'),
+                onPressed: () {
+                  Get.to(page5_allset());
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -116,7 +141,7 @@ class _ProductDetailsEntryState extends State<ProductDetailsEntry> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       initialValue: productData.quantity.toString(),
-                      validator: (value) => value.isEmpty ? 'New Shop' : null,
+                      validator: (value) => value.isEmpty ? '-' : null,
                       onChanged: (value) {
                         setState(() {
                           _quantity = int.parse(value);

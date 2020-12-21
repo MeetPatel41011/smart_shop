@@ -26,120 +26,121 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
     final user = Provider.of<UserModel>(context);
 
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userData,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final userData = snapshot.data;
+      stream: DatabaseService(uid: user.uid).userData,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final userData = snapshot.data;
 
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Enter your Info'),
-              ),
-              body: Container(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                  margin: EdgeInsets.all(_minimumPadding),
-                  child: Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(50),
-                              child: Text(
-                                'Welcome',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.blue,
-                                ),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Enter your Info'),
+            ),
+            body: Container(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                margin: EdgeInsets.all(_minimumPadding),
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(50),
+                            child: Text(
+                              'Welcome',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue,
                               ),
                             ),
                           ),
-                          Text(
-                            'Enter shop name',
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
+                        ),
+                        Text(
+                          'Enter shop name',
+                          style: TextStyle(
+                            color: Colors.blue,
                           ),
-                          TextFormField(
-                            initialValue: userData.shopName,
-                            validator: (value) =>
-                                value.isEmpty ? 'New Shop' : null,
-                            onChanged: (value) {
-                              setState(() {
-                                _shopName = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'My Shop',
-                              hintStyle: TextStyle(color: Colors.grey[500]),
-                            ),
+                        ),
+                        TextFormField(
+                          initialValue: userData.shopName,
+                          validator: (value) =>
+                              value.isEmpty ? 'New Shop' : null,
+                          onChanged: (value) {
+                            setState(() {
+                              _shopName = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'My Shop',
+                            hintStyle: TextStyle(color: Colors.grey[500]),
                           ),
-                          SizedBox(height: 40),
-                          Text(
-                            'Total types of products',
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
+                        ),
+                        SizedBox(height: 40),
+                        Text(
+                          'Total types of products',
+                          style: TextStyle(
+                            color: Colors.blue,
                           ),
-                          TextFormField(
-                            keyboardType: TextInputType.number,
-                            initialValue: userData.noOfProducts.toString(),
-                            validator: (value) => value.isEmpty ? '-' : null,
-                            onChanged: (value) {
-                              setState(() {
-                                _noOfProducts = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'Number of Products',
-                              hintStyle: TextStyle(color: Colors.grey[500]),
-                            ),
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.number,
+                          initialValue: userData.noOfProducts.toString(),
+                          validator: (value) => value.isEmpty ? '-' : null,
+                          onChanged: (value) {
+                            setState(() {
+                              _noOfProducts = value;
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Number of Products',
+                            hintStyle: TextStyle(color: Colors.grey[500]),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(70.0),
-                            child: RaisedButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 50),
-                              color: Colors.blueAccent,
-                              textColor: Colors.white,
-                              child: Text('Done'),
-                              onPressed: () async {
-                                int _np = int.parse(_noOfProducts);
-                                if (_formKey.currentState.validate()) {
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(70.0),
+                          child: RaisedButton(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 50),
+                            color: Colors.blueAccent,
+                            textColor: Colors.white,
+                            child: Text('Done'),
+                            onPressed: () async {
+                              int _np = int.parse(_noOfProducts);
+                              if (_formKey.currentState.validate()) {
+                                await DatabaseService(uid: user.uid)
+                                    .createUserData(
+                                  _shopName ?? userData.shopName,
+                                  _np ?? userData.noOfProducts,
+                                );
+                                for (int i = 0;
+                                    i < userData.noOfProducts;
+                                    i++) {
                                   await DatabaseService(uid: user.uid)
-                                      .createUserData(
-                                    _shopName ?? userData.shopName,
-                                    _np ?? userData.noOfProducts,
-                                  );
-                                  for (int i = 0;
-                                      i < userData.noOfProducts;
-                                      i++) {
-                                    await DatabaseService(uid: user.uid)
-                                        .createProductData((i + 1).toString());
-                                  }
-                                  Get.to(
-                                    page4(
-                                      productCount: userData.noOfProducts,
-                                      sName: userData.shopName,
-                                    ),
-                                  );
+                                      .createProductData((i + 1).toString());
                                 }
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0),
-                              ),
+                                Get.to(
+                                  page4(
+                                    productCount: userData.noOfProducts,
+                                    sName: userData.shopName,
+                                  ),
+                                );
+                              }
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(30.0),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  )),
-            );
-          } else {
-            return Loading();
-          }
-        });
+                  ),
+                )),
+          );
+        } else {
+          return Loading();
+        }
+      },
+    );
   }
 }
