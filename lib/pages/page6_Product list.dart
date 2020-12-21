@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_shop/models/productModel.dart';
 import 'package:smart_shop/models/user.dart';
+import 'package:smart_shop/pages/page1.dart';
 import 'package:smart_shop/services/auth.dart';
 import 'package:smart_shop/services/database.dart';
-import 'package:smart_shop/widgets/loading.dart';
+// import 'package:smart_shop/widgets/loading.dart';
 
 import 'page4.dart';
 
@@ -61,6 +62,7 @@ class page6_product_list extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               await _auth.signOut();
+              Get.off(page1());
             },
             child: Center(child: Text('SignOut')),
           ),
@@ -173,7 +175,7 @@ class DisplayBox extends StatelessWidget {
               ),
             );
           } else {
-            return Loading();
+            return SizedBox();
           }
         });
   }
