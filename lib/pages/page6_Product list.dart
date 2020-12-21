@@ -12,6 +12,15 @@ class page6_product_list extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.camera_alt,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          //  Open Camera
+        },
+      ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(sName),
