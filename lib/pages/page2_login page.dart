@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smart_shop/pages/page3_Welcome%20page.dart.dart';
 import 'package:smart_shop/services/auth.dart';
 import 'package:smart_shop/widgets/loading.dart';
 
@@ -12,6 +14,7 @@ class page2_loginpage extends StatefulWidget {
   _page2_loginpageState createState() => _page2_loginpageState();
 }
 
+// ignore: camel_case_types
 class _page2_loginpageState extends State<page2_loginpage> {
   final AuthService _authService = AuthService();
   String email;
@@ -108,6 +111,7 @@ class _page2_loginpageState extends State<page2_loginpage> {
                                     });
                                     dynamic user = await _authService.register(
                                         email, password);
+                                    Get.to(page3_Welcomepage());
                                     if (user == null) {
                                       setState(() {
                                         loading = false;
