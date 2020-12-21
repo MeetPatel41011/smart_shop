@@ -12,10 +12,16 @@ class DatabaseService {
   final CollectionReference productsCollection =
       Firestore.instance.collection('products');
 
-  Future updateUserData(String shopName, int noOfProducts) async {
+  Future createUserData(String shopName, int noOfProducts) async {
     return await shopsCollection
         .document(uid)
         .setData({'shop_name': shopName, 'no_of_products': noOfProducts});
+  }
+
+  Future updateUserData(int noOfProducts) async {
+    return await shopsCollection
+        .document(uid)
+        .updateData({'no_of_products': noOfProducts});
   }
 
   // Future productsPresent()async{

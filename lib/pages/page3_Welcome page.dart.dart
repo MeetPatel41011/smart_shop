@@ -109,7 +109,7 @@ class _page3_WelcomepageState extends State<page3_Welcomepage> {
                                 int _np = int.parse(_noOfProducts);
                                 if (_formKey.currentState.validate()) {
                                   await DatabaseService(uid: user.uid)
-                                      .updateUserData(
+                                      .createUserData(
                                     _shopName ?? userData.shopName,
                                     _np ?? userData.noOfProducts,
                                   );

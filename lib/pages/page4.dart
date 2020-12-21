@@ -26,11 +26,13 @@ class _page4State extends State<page4> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add, color: Colors.white),
         onPressed: () async {
-          setState(() {
-            prCount++;
-          });
+          prCount = prCount + 1;
           await DatabaseService(uid: user.uid)
               .createProductData((prCount).toString());
+          await DatabaseService(uid: user.uid).updateUserData(prCount);
+          setState(() {
+            print('New Product Added');
+          });
         },
       ),
       appBar: AppBar(title: Text(widget.sName)),
